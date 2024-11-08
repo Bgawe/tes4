@@ -1,0 +1,22 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Buildozer environment
+      run: |
+        sudo apt update
+        sudo apt install python3-pip
+        pip3 install --upgrade pip
+        pip3 install buildozer
+      
+    - name: Build APK
+      run: buildozer -v android release
